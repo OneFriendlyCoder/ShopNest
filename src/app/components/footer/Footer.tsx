@@ -6,7 +6,7 @@ import { AiFillInstagram, AiFillTwitterCircle, AiFillYoutube } from "react-icons
 
 const Footer = () => {
     return ( 
-        <footer className="bg-gray-600 text-white text-sm mt-16">
+        <footer className="bg-gray-700 text-white text-sm mt-16">
             <Container>
                 <div className="flex flex-col md:flex-row justify-between pt-16 pb-8">
                     <FooterList>
