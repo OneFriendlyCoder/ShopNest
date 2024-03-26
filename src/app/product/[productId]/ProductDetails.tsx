@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState, useCallback } from "react";
 import SetColor from "@/app/components/products/SetColor";
+import SetQuantity from "@/app/components/products/SetQuantity";
 interface ProductDetailsProps{
     product: any;
 }
@@ -46,13 +47,30 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
     const totalRatingSum = totalRatings > 0 ? product.reviews.reduce((acc: number, item: any)=> item.rating + acc, 0): 0;
     const productRating = totalRatings > 0 ? totalRatingSum / totalRatings : 0;
 
+    // useCallback is being used in order to memoize function
     const handleColorSelect = useCallback((value: SelectedImgType)=>{
         setCartProduct((prev) => {
             return {...prev, selectedImage: value}
         })
     }, [cartProduct.selectedImage])
 
-    
+
+    const handleQtyIncrease = useCallback(()=>{
+        if(cartProduct.quantity === 99) return
+        setCartProduct((prev) => {
+            return {...prev, quantity: prev.quantity + 1}
+        })
+    }, []);
+
+    const handleQtyDecrease = useCallback(()=>{
+        if(cartProduct.quantity === 1) return 
+        setCartProduct((prev) => {
+            return {...prev, quantity: prev.quantity - 1}
+        })
+    }, []);
+
+
+
     return (  
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
@@ -79,7 +97,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
                 <Horizontal />
                 <SetColor cartProduct={cartProduct} images={product.images} handleColorSelect={handleColorSelect}/>
                 <Horizontal />
-                <div>QUANTITY</div>
+                <SetQuantity cartProduct={cartProduct} handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
                 <Horizontal />
                 <div>add to cart</div>
             </div>
