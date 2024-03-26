@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useCallback } from "react";
 import SetColor from "@/app/components/products/SetColor";
 import SetQuantity from "@/app/components/products/SetQuantity";
+import Button from "@/app/components/Button";
 interface ProductDetailsProps{
     product: any;
 }
@@ -99,7 +100,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
                 <Horizontal />
                 <SetQuantity cartProduct={cartProduct} handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
                 <Horizontal />
-                <div>add to cart</div>
+                <div className="max-w-[300px]"><Button label="Add to Cart" onClick={()=>{}}/></div>
             </div>
         </div>
     );
