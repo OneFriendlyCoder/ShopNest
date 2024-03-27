@@ -1,4 +1,4 @@
-import { createContext } from "react"
+import { createContext, useEffect } from "react"
 import { useState } from "react";
 import { useContext, useCallback } from "react";
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
@@ -19,6 +19,12 @@ export const CartContextProvider = (props: Props) => {
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
 
+    useEffect(()=>{
+        const cartItems: any = localStorage.getItem('usercartitems');
+        const cProducts: CartProductType[] | null = JSON.parse(cartItems);
+        setCartProducts(cProducts);
+    },[])
+
     const handleAddProductToCart = useCallback((product: CartProductType) =>{               // adding the product to the state
         setCartProducts((prev)=>{
             let updatedCart;
@@ -28,6 +34,7 @@ export const CartContextProvider = (props: Props) => {
             }else{
                 updatedCart = [product];
             }
+            localStorage.setItem('usercartitems', JSON.stringify(updatedCart));             //persistent storage
             return updatedCart;
         })
     }, []);
