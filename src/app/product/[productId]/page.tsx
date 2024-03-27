@@ -1,7 +1,7 @@
 import Container from "@/app/components/Container";
 import ProductDetails from "./ProductDetails";
 import { product } from "@/utils/product";
-import ListRating from "./ListingRating";
+import ListRating from "./ListRating";
 interface IParams{
     productId?: string;                                                 //optional productId
 }
