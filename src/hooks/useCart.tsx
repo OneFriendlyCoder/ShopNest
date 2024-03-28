@@ -7,6 +7,7 @@ import { product } from '../utils/product';
 import { setPriority } from "os";
 type CartContextType = {
     cartTotalQty: number;
+    cartTotalAmount: number;
     cartProducts: CartProductType[] | null;
     handleAddProductToCart: (product: CartProductType) => void;
     handleRemoveProductFromCart: (product: CartProductType) => void;
@@ -23,12 +24,32 @@ export const CartContext = createContext<CartContextType | null>(null);
 export const CartContextProvider = (props: Props) => {
     const [cartTotalQty, setCartTotalQty] = useState(0);
     const [cartProducts, setCartProducts] = useState<CartProductType[] | null>(null);
+    const [cartTotalAmount, setCartTotalAmount] = useState(0);
 
     useEffect(()=>{
         const cartItems: any = localStorage.getItem('usercartitems');
         const cProducts: CartProductType[] | null = JSON.parse(cartItems);
         setCartProducts(cProducts);
     },[])
+
+    useEffect(()=>{                                                     // calculating the total amount and qty of items
+        const getTotals = () =>{
+            if(cartProducts){
+                const {total, qty} = cartProducts?.reduce((acc, item) => {
+                    const itemTotal = item.price * item.quantity;
+                    acc.total += itemTotal;
+                    acc.qty += item.quantity;
+                    return acc;
+                },{
+                    total: 0,
+                    qty: 0
+                });
+                setCartTotalQty(qty);
+                setCartTotalAmount(total);
+            }
+        }
+        getTotals();
+    },[cartProducts])
 
     const handleAddProductToCart = useCallback((product: CartProductType) =>{               // adding the product to the state
         setCartProducts((prev)=>{
@@ -98,12 +119,14 @@ export const CartContextProvider = (props: Props) => {
     const handleClearCart = useCallback(() =>{
         setCartProducts(null);
         setCartTotalQty(0);
+        setCartTotalAmount(0);
         localStorage.setItem('usercartitems', JSON.stringify(null)); 
     },[cartProducts]);
 
 
     const value = {
         cartTotalQty,
+        cartTotalAmount,
         cartProducts,
         handleAddProductToCart,
         handleRemoveProductFromCart,
