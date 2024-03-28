@@ -10,7 +10,7 @@ interface ListRatingProps{
 const ListRating: React.FC<ListRatingProps> = ({product}) => {
     return (  
         <div>   
-            <Heading title="Product Review" />
+            {product.reviews.length !== 0 && <Heading title="Product Review" />}
             <div className="text-sm mt-2">
                 {product.reviews && product.reviews.map((review: any)=>{
                     return <div key={review.id} className="max-w-300px">

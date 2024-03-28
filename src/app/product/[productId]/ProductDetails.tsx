@@ -1,11 +1,9 @@
 "use client"
-import Image from "next/image";
 import { useState, useCallback, useEffect } from "react";
 import SetColor from "@/app/components/products/SetColor";
 import SetQuantity from "@/app/components/products/SetQuantity";
 import Button from "@/app/components/Button";
 import ProductImage from "@/app/components/products/ProductImage";
-import { product } from '../../../utils/product';
 import { useCart } from "@/hooks/useCart";
 import { MdCheckCircle } from "react-icons/md";
 import { useRouter } from "next/navigation";
