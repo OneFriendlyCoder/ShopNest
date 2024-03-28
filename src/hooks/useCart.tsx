@@ -2,7 +2,7 @@ import { createContext, useEffect } from "react"
 import { useState } from "react";
 import { useContext, useCallback } from "react";
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
-
+import {toast} from "react-hot-toast";
 type CartContextType = {
     cartTotalQty: number;
     cartProducts: CartProductType[] | null;
@@ -34,6 +34,7 @@ export const CartContextProvider = (props: Props) => {
             }else{
                 updatedCart = [product];
             }
+            toast.success("Product added to cart");
             localStorage.setItem('usercartitems', JSON.stringify(updatedCart));             //persistent storage
             return updatedCart;
         })
