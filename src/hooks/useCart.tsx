@@ -4,6 +4,7 @@ import { useContext, useCallback } from "react";
 import { CartProductType } from "@/app/product/[productId]/ProductDetails";
 import {toast} from "react-hot-toast";
 import { product } from '../utils/product';
+import { setPriority } from "os";
 type CartContextType = {
     cartTotalQty: number;
     cartProducts: CartProductType[] | null;
@@ -11,6 +12,7 @@ type CartContextType = {
     handleRemoveProductFromCart: (product: CartProductType) => void;
     handleCartQtyIncrease: (product: CartProductType) => void;
     handleCartQtyDecrease: (product: CartProductType) => void;
+    handleClearCart: () => void;
 };
 
 interface Props{
@@ -93,13 +95,21 @@ export const CartContextProvider = (props: Props) => {
         } 
     }, [cartProducts]);
 
+    const handleClearCart = useCallback(() =>{
+        setCartProducts(null);
+        setCartTotalQty(0);
+        localStorage.setItem('usercartitems', JSON.stringify(null)); 
+    },[cartProducts]);
+
+
     const value = {
         cartTotalQty,
         cartProducts,
         handleAddProductToCart,
         handleRemoveProductFromCart,
         handleCartQtyIncrease,
-        handleCartQtyDecrease
+        handleCartQtyDecrease,
+        handleClearCart
     }
     return <CartContext.Provider value={value} {...props}/>
 }
