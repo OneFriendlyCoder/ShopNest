@@ -1,0 +1,46 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"    //prisma client for JS, this client will provide api for querying and mutating data in db
+}
+
+model Account {         //Account table in DB
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId      //id of String, @id->primary key, @default(auto())->auto generated, @map("_id")->id field in db is mapped to @db.ObjectId field
+  userId             String  @db.ObjectId   //@db.ObjecId -> is marked to be stored as ObjectId in the db
+  type               String  
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String    //String?->nullable string, @db.String-> defined to be stored as string in the db
+  access_token       String?  @db.String   
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)    //defines a relation user to the User model, "userID" : Account model references the "id" field in the User model, `onDelete: Cascade`-> when a User record is deleted, associated Account is also deleted
+
+  @@unique([provider, providerAccountId])     //combination of these 2 fields("provider" & "providerAccountId") is unique in the db
+}
+
+model User {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  name               String?
+  email              String?   @unique
+  emailVerified      DateTime?
+  image              String?
+  hashedPassword     String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt    //it is marked automatically updatedAt with the time stamp whenever the record is updated.
+  role               Role @default(USER)
+  accounts           Account[]    //a user can have multiple associated Account records.
+}
+
+
+enum Role{
+  USER
+  ADMIN
+}
