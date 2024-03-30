@@ -5,6 +5,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "../../../libs/prismadb"
+import bcrypt from 'bcrypt'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -19,10 +20,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           email: { label: "email", type: "text"},
           password: { label: "password", type: "password" }
         },
-        async authorize(credentials, req) {
+        async authorize(credentials) {
           // Add logic here to look up the user from the credentials supplied
-
+          if(!credentials?.email || !credentials.password){throw new Error("Invalid Email or Password")};
+          const user = await prisma.user.findUnique({           // this will try to get the user from the db
+            where: {email: credentials.email}
+          })
+          if(!user || !user.hashedPassword){throw new Error("Invalid Email or Password")}
+          const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
+          if(!isCorrectPassword){throw new Error("Invalid Email or Password")}
+          return user; 
         }
       })
     ],
+    pages:{               // for adding a custom login page that we have created, else nextauth will use its own login page
+      signIn: "/login",
+    },
+    debug: process.env.NODE_ENV === 'development',
+    session:{
+      strategy: 'jwt'
+    },
+    secret: process.env.NEXTAUTH_SECRET
 });
