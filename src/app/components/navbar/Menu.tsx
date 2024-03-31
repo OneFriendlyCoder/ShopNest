@@ -3,6 +3,8 @@ import { useCallback, useState } from "react";
 import Avatar from "../Avatar";
 import { AiFillCaretDown } from "react-icons/ai";
 import Link from "next/link";
+import MenuItems from "./MenuItem";
+import { signOut } from "next-auth/react";
 const UserMenu = () => {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -18,8 +20,22 @@ const UserMenu = () => {
             {isOpen && (
                 <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
                     <div>
-                        <Link href="orders"></Link>
+                        <Link href="/orders">
+                            <MenuItems onClick={toggleOpen}>Your Orders</MenuItems>
+                        </Link>
+                        <Link href="/admin">
+                            <MenuItems onClick={toggleOpen}>Admin Dashboard</MenuItems>
+                        </Link>
+                        <MenuItems onClick={()=>{toggleOpen(); signOut();}}>Signout</MenuItems>
                     </div>
+                    <div>{/* display these links dynamically based on whether the user is login or not */}
+                        <Link href="/login">
+                            <MenuItems onClick={toggleOpen}>Login</MenuItems>
+                        </Link>
+                        <Link href="/register">
+                            <MenuItems onClick={toggleOpen}>SignUp</MenuItems>
+                        </Link>
+                    </div> 
                 </div> 
             )}
         </div>
