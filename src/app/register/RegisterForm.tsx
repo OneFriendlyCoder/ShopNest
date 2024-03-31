@@ -57,7 +57,7 @@ const RegisterForm:React.FC<RegisterPageProps> = ({currentUser}) => {
     return (  
         <>
             <Heading title="SignUp"/>
-            <Button outline label="Sign up with Google" icon={AiOutlineGoogle} onClick={()=>{}}/>
+            <Button outline label="Sign up with Google" icon={AiOutlineGoogle} onClick={()=>{signIn('google')}}/>
             <hr className="bg-slate-300 w-full h-px" />
             <Input id="name" label="Name" disabled={isLoading} register={register} errors={errors} required/>
             <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required/>
