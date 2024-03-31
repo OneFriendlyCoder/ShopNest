@@ -5,6 +5,8 @@ import Navbar from "./components/navbar/NavBar";
 import Footer from "./components/footer/Footer";
 import CartProvider from "@/providers/CartProviders";
 import { Toaster } from "react-hot-toast";
+import { getCurrentUser } from "../../actions/getCurrentUser";
+
 const inter = Inter({ subsets: ["latin"], weight:['400', '700'] });
 
 export const metadata: Metadata = {
