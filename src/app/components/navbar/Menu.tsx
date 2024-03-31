@@ -10,7 +10,7 @@ import { SafeUser } from "../../../../types";
 
 
 interface UserMenuProps{
-    currentUser: SafeUser;
+    currentUser: SafeUser | null ;
 }
 
 const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
@@ -36,6 +36,7 @@ const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
                         <Link href="/admin">
                             <MenuItems onClick={toggleOpen}>Admin Dashboard</MenuItems>
                         </Link>
+                        <hr/>
                         <MenuItems onClick={()=>{toggleOpen(); signOut();}}>Signout</MenuItems>
                     </div> :                     
                     <div>
