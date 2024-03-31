@@ -3,7 +3,7 @@
 import { FieldValue } from "react-hook-form";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FieldValues,useForm, SubmitHandler } from "react-hook-form";
 import Button from "../components/Button";
 import Link from "next/link";
@@ -12,11 +12,25 @@ import axios from "axios";
 import { toast } from 'react-hot-toast';
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "../../../types";
 
-const RegisterForm = () => {
+interface RegisterPageProps{
+    currentUser: SafeUser | null;
+}
+
+
+const RegisterForm:React.FC<RegisterPageProps> = ({currentUser}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const {register, handleSubmit, formState: {errors}} = useForm<FieldValues>({defaultValues: {name:"", email: "",password:""}});
     const router = useRouter();
+
+    useEffect(()=>{                 
+        if(currentUser){
+            router.push('/cart');
+            router.refresh();
+        }
+    },[])
+
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
         axios.post('/api/register', data).then(()=>{
@@ -37,7 +51,9 @@ const RegisterForm = () => {
             })
         }).catch(()=>{toast.error("Something went wrong")}).finally(() => {setIsLoading(false)});
     }
-
+    if(currentUser){
+        return (<p>Already Logged In. Redirecting...</p>)
+    }
     return (  
         <>
             <Heading title="SignUp"/>
