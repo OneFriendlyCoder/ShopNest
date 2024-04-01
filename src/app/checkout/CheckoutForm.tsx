@@ -7,6 +7,8 @@ import { FormatPrice } from '@/utils/formatPrice';
 import toast from 'react-hot-toast';
 import Heading from '../components/Heading';
 import Button from '../components/Button';
+
+
 interface CheckoutFormProps{
     clientSecret: string,
     handleSetPaymentSuccess: (value: boolean) => void;
@@ -26,21 +28,21 @@ const CheckoutForm:React.FC<CheckoutFormProps> = ({clientSecret, handleSetPaymen
         handleSetPaymentSuccess(false); 
     }, [stripe])
 
-        const handleSubmit = async(e: React.FormEvent) => {
-            e.preventDefault();
-            if(!stripe || !elements){return}
-            setIsLoading(true);
-            stripe.confirmPayment({
-                elements, redirect: 'if_required'
-            }).then(result => {
-                if(!result.error){
-                    toast.success('Payment Successful');            //payment success
-                    handleClearCart();              //clear the cart
-                    handleSetPaymentSuccess(true);
-                    handleSetPaymentIntent(null);           //the localStorage paymentIntent is null
-                }
-                setIsLoading(false);
-            })
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if(!stripe || !elements){return}
+        setIsLoading(true);
+        const result = await stripe.confirmPayment({
+            elements, redirect: 'if_required'
+        })
+        console.log(result)
+        if(!result.error){
+                toast.success('Payment Successful');            
+                handleClearCart();              
+                handleSetPaymentSuccess(true);
+                handleSetPaymentIntent(null);           
+            }
+            setIsLoading(false);
         }
 
 
@@ -50,7 +52,7 @@ const CheckoutForm:React.FC<CheckoutFormProps> = ({clientSecret, handleSetPaymen
                 <Heading title="Enter your details to complete checkout" />
             </div>
             <h2 className='font-semibold mt-4 mb-2'>Address Information</h2>
-            <AddressElement options={{mode: 'shipping', allowedCountries: ["India", "US"]}}/>
+            <AddressElement options={{mode: 'shipping', allowedCountries: ["US", "Kenya"]}}/>
 
             <h2 className='font-semibold mt-4 mb-2'>Payment Information</h2>
             <PaymentElement id="payment-element" options={{layout: "tabs"}}/>
@@ -58,7 +60,7 @@ const CheckoutForm:React.FC<CheckoutFormProps> = ({clientSecret, handleSetPaymen
             <div className='py-4 mt-6 text-center text-slate-700 text-4xl font-bold'>
                 Total: {formattedPrice}
             </div>
-            <Button label={isLoading ? 'Processing' : 'Pay Now'} disabled={isLoading || !stripe || !elements} onClick={()=>{}}/>      
+            <Button label={isLoading ? 'Processing' : 'Pay Now'} disabled={isLoading || !stripe || !elements} onClick={()=>{handleSubmit}}/>      
         </form>
     );
 }

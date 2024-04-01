@@ -130,7 +130,7 @@ export const CartContextProvider = (props: Props) => {
         localStorage.setItem('usercartitems', JSON.stringify(null)); 
     },[cartProducts]);
 
-    const handleSetPaymentIntent = useCallback((val: string|null) => {              //will set the payment intent
+    const handleSetPaymentIntent = useCallback((val: string | null) => {              //will set the payment intent
         setPaymentIntent(val);
         localStorage.setItem('ShopNestPaymentIntent', JSON.stringify(val));
     },[paymentIntent])

@@ -4,11 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { StripeElement, StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import CheckoutForm from "./CheckoutForm";
 import Button from "../components/Button";
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 const CheckoutClient = () => {
     const {cartProducts, paymentIntent, handleSetPaymentIntent} = useCart();
     const [loading, setLoading] = useState(false);
