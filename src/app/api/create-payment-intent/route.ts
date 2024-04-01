@@ -30,7 +30,16 @@ export async function POST(request: Request){
         status: 'pending',
         deliveryStatus: 'pending',
         paymentIntentId: 'payment_intent_id',
-        products: items
+        products: items.map((item: CartProductType) => ({
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            category: item.category,
+            brand: item.brand,
+            selectedImage: item.selectedImage, // Make sure the field name is correct here
+            quantity: item.quantity,
+            price: item.price
+          }))
     }
     if(payment_intent_id){          //payment_intent_id we get from the request body
         //update order
@@ -59,7 +68,7 @@ export async function POST(request: Request){
         // create the order
         orderData.paymentIntentId = paymentIntent.id;
         await prisma.order.create({
-            data: orderData
+            data: orderData,
         });
         return NextResponse.json({paymentIntent});
     }
