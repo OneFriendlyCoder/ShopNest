@@ -65,7 +65,7 @@ export async function POST(request: Request){
             amount: total,
             currency: 'usd',
             automatic_payment_methods: {enabled: true},
-            description: "Software development services"
+            description: "Software development services"                    //As per Indian standards it is required to add description as well
         });
         // create the order
         orderData.paymentIntentId = paymentIntent.id;
