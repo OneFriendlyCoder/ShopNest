@@ -7,6 +7,20 @@ import TextArea from "@/app/components/inputs/TextArea";
 import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
 import { categories } from "@/utils/Categories";
 import CategoryInput from "@/app/components/inputs/CategoryInput";
+import { Colors } from "@/utils/Colors";
+
+export type ImageType = {
+    color: string, 
+    colorCode: string,
+    image: File | null
+}
+
+export type UploadedImageType = {
+    color: string, 
+    colorCode: string,
+    image: string,                      //will be getting the url from the firebase storage
+}
+
 const AddProductForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const {register, handleSubmit, setValue, watch, reset,formState:{errors}} = useForm<FieldValues>({
@@ -47,6 +61,19 @@ const AddProductForm = () => {
                     </div>
                 })}
            </div> 
+           <div className="w-full flex flex-col flex-wrap gap-1 mt-4">
+                <div className="font-bold">
+                    Select color and upload their images
+                </div>
+                <div className="text-sm">
+                    You must upload an image for each of the color selected otherwise the color selection will be ignored
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                    {Colors.map((item, index) => {
+                        return <></>
+                    })}
+                </div>
+           </div>
         </div>
     </>
     );
