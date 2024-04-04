@@ -1,7 +1,7 @@
 "use client"
 import Input from "@/app/components/inputs/input";
 import Heading from "@/app/components/Heading";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import TextArea from "@/app/components/inputs/TextArea";
 import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
@@ -24,6 +24,8 @@ export type UploadedImageType = {
 
 const AddProductForm = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [images, setImages] = useState<ImageType[] | null>([]);
+    const [isProductCreated, setIsProductCreated] = useState(false);
     const {register, handleSubmit, setValue, watch, reset,formState:{errors}} = useForm<FieldValues>({
         defaultValues: {
             name: "",
@@ -35,6 +37,22 @@ const AddProductForm = () => {
             inStock: false,
         },
     });
+
+    console.log('images>>>>>', images);
+
+    useEffect(()=>{
+        setCustomValue('images', images);   
+    },[images])
+
+    useEffect(()=>{
+        if(isProductCreated)
+        {
+            reset();
+            setImages(null)
+            setIsProductCreated(false);
+        }
+    }, [isProductCreated])
+
     const category = watch("category");
     const setCustomValue = (id: string, value: any) => {            //this will update the category in the form value above
         setValue(id, value, {
@@ -43,6 +61,25 @@ const AddProductForm = () => {
             shouldTouch: true,
         });
     }
+
+    const addImageToState = useCallback((value: ImageType) => {
+        setImages((prev) => {
+            if (!prev) {
+                return [value]; 
+            }
+            return [...prev, value]
+        });
+    }, []);
+    
+    const removeImageFromState = useCallback((value: ImageType) =>{
+        setImages((prev) => {
+            if (prev) {
+                const filteredImages = prev.filter((item: any) => item.color !== value.color)
+                return filteredImages; 
+            }
+            return prev
+        })
+    }, [])
 
     return (  
     <>
@@ -72,7 +109,7 @@ const AddProductForm = () => {
                 <div className="grid grid-cols-2 gap-3">
                     {Colors.map((item, index) => {
                         return (
-                            <SelectColor key={index} item={item} addImageToState={()=>{}} removeImageFromState={()=>{}} isProductCreated={false} />
+                            <SelectColor key={index} item={item} addImageToState={addImageToState} removeImageFromState={removeImageFromState} isProductCreated={false} />
                         )
                     })}
                 </div>
