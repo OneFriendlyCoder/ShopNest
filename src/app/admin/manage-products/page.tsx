@@ -1,4 +1,4 @@
-import ManageProductsClient from "./getProductsClient";
+import ManageProductsClient from "./ManageProductsClient";
 import Container from "@/app/components/Container";
 import getProducts from "../../../../actions/getProducts";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
