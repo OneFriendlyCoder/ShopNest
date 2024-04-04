@@ -6,6 +6,8 @@ import Heading from "@/app/components/Heading";
 import { FormatPrice } from "@/utils/formatPrice";
 import Status from "@/app/components/Status";
 import { MdAccessTimeFilled, MdDeliveryDining, MdDone } from "react-icons/md";
+import moment from "moment";
+import OrderItem from "./OrderItem";
 
 interface OrderDetailsProps {
     order: Order;
@@ -20,7 +22,7 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
                 <Heading title="Order Details" />
             </div>
             <div>Order Id: {order.id}</div>
-            <div>Total Amount: <span className="font-bold">{FormatPrice(order.amount)}</span></div>
+            <div>Total Amount: <span className="font-bold">{FormatPrice(order.amount / 100)}</span></div>
             <div className="flex gap-2 items-center">
                 <div>Payment Status:</div>
                 <div>
@@ -45,6 +47,19 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order }) => {
                 </div>
             </div>
 
+            <div>Date: {moment(order.createDate).fromNow()}</div>
+            <div>
+                <h2 className="font-semibold mt-4 mb-2">Products Ordered</h2>
+                <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center">
+                    <div className="col-span-2 justify-self-start">PRODUCT</div>
+                    <div className="justify-self-center ">PRICE</div>
+                    <div className="justify-self-center ">QTY</div>
+                    <div className="justify-self-end ">TOTAL</div>
+                </div>
+                {order.products && order.products.map((item) => {
+                    return (<OrderItem key={item.id} item={item}/>)
+                })}
+            </div>
         </div>
     );
 };
