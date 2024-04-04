@@ -8,6 +8,7 @@ import CustomCheckBox from "@/app/components/inputs/CustomCheckBox";
 import { categories } from "@/utils/Categories";
 import CategoryInput from "@/app/components/inputs/CategoryInput";
 import { Colors } from "@/utils/Colors";
+import SelectColor from "@/app/components/inputs/SelectColor";
 
 export type ImageType = {
     color: string, 
@@ -70,7 +71,9 @@ const AddProductForm = () => {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                     {Colors.map((item, index) => {
-                        return <></>
+                        return (
+                            <SelectColor key={index} item={item} addImageToState={()=>{}} removeImageFromState={()=>{}} isProductCreated={false} />
+                        )
                     })}
                 </div>
            </div>
