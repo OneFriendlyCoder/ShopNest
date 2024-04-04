@@ -49,7 +49,7 @@ const ManageProductsClient:React.FC<ManageProductsClientProps> = ({products}) =>
         {field: 'action', headerName: 'Actions', width:200, renderCell: (params) => {return(<div className="flex justify-between gap-4 w-full">
             <ActionBtn icon={MdCached} onClick={() => {handleToggleStock(params.row.id, params.row.inStock)}}/>
             <ActionBtn icon={MdDelete} onClick={()=>{handleDelete(params.row.id, params.row.images)}}/>
-            <ActionBtn icon={MdRemoveRedEye} onClick={()=>{}}/>
+            <ActionBtn icon={MdRemoveRedEye} onClick={()=>{router.push(`product/${params.row.id}`)}}/>
         </div>)}},
         
         {field: 'images', headerName: 'Images', width:220},
