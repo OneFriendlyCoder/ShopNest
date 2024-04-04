@@ -4,6 +4,7 @@ import { Merriweather } from "next/font/google";
 import CartCount from "./CartCount";
 import UserMenu from "./Menu";
 import { getCurrentUser } from "../../../../actions/getCurrentUser";
+import Categories from "./Categories";
 const merriweather = Merriweather({subsets: ['latin'], weight:['400']})
 
 const Navbar = async () => {
@@ -24,6 +25,7 @@ const Navbar = async () => {
                     </div>
                 </Container>
             </div>
+            <Categories/>
         </div>
     );
 }
