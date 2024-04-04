@@ -70,7 +70,7 @@ const CheckoutClient = () => {
             {error && <div className="text-center text-rose-600">Something went wrong</div> }
             {paymentSuccess && (<div className="flex items-center flex-col gap-4">
                 <div className="text-teal-500 text-center">Payment Success</div>
-                <div className="max-w-[220px] w-full"><Button label="View your orders" onClick={()=>router.push('/order')}></Button></div>
+                <div className="max-w-[220px] w-full"><Button label="View your orders" onClick={()=>router.push('/orders')}></Button></div>
             </div>)}
         </div>
     );

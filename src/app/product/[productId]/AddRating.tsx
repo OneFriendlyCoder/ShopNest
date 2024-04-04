@@ -10,6 +10,8 @@ import Heading from "@/app/components/Heading";
 import { Rating } from "@mui/material";
 import Input from "@/app/components/inputs/input";
 import Button from "@/app/components/Button";
+import toast from "react-hot-toast";
+import axios from "axios";
 interface AddRatingProps{
     product: Product & {
         reviews: Review[];
@@ -41,9 +43,27 @@ const AddRating:React.FC<AddRatingProps> = ({product, user}) => {
     }
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data)
+        setIsLoading(true);
+        if(data.rating === 0) {setIsLoading(false);return toast.error('No rating selected')};
+        const ratingData = {...data, userId: user?.id, product: product};
+        axios.post('/api/rating', ratingData).then(() => {
+            toast.success("Rating was added");
+            router.refresh();
+            reset();
+        }).catch((error) => {
+            toast.error("Something went wrong")
+            console.log(error)
+        }).finally(() => {
+            setIsLoading(false);
+        })
     }
 
+    if(!user || !product) return null;
+    const deliveredOrder = user?.orders.some(order => order.products.find(item => item.id === product.id) && order.deliveryStatus === "delivered");
+    const userReview = product?.reviews.find(((review: Review) => {
+    return review.userId === user.id}))
+    if(!userReview || !deliveredOrder) {return null;}
+    
     return (  
         <div className="flex flex-col gap-2 max-w-[500px]">
             <Heading title="Rate this product"/>
