@@ -13,6 +13,8 @@ import Button from "@/app/components/Button";
 import toast from "react-hot-toast";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL,  } from "firebase/storage";
 import firebaseapp from "../../../../libs/firebase";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 
 
@@ -29,6 +31,7 @@ export type UploadedImageType = {
 }
 
 const AddProductForm = () => {
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [images, setImages] = useState<ImageType[] | null>([]);
     const [isProductCreated, setIsProductCreated] = useState(false);
@@ -86,7 +89,7 @@ const AddProductForm = () => {
     }, [])
 
     const onSubmit: SubmitHandler<FieldValues> = async(data) => {
-        //upload images to firebase and then saving the product to MongoDB
+        //upload images to firebase
         setIsLoading(true);
         let uploadedImages: UploadedImageType[] = [];
         if(!data.category){
@@ -99,7 +102,7 @@ const AddProductForm = () => {
             return toast.error("No images");
         }
 
-        const handleImageUploads = async () => {
+        const handleImageUploads = async () => {                        //uploading images to firebase
             toast('Creating Product, please wait...');
             try {
                 for(const item of data.images){
@@ -150,6 +153,21 @@ const AddProductForm = () => {
                 toast.error("Error handling image uploads");
             }
         }
+
+        await handleImageUploads();
+        const productData = {...data, images: uploadedImages};
+        
+
+        //storing the product data in MongoDB
+        axios.post('/api/product', productData).then(() => {
+            toast.success("Product was created");
+            setIsProductCreated(true);
+            router.refresh();
+        }).catch(err => {
+            toast.error("Something went wrong")
+        }).finally(() => {
+            setIsLoading(false);
+        })
     }
 
     return (  
