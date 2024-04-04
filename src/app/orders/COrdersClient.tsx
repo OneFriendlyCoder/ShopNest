@@ -92,8 +92,6 @@ const COrdersClient:React.FC<COrdersClientProps> = ({orders}) => {
             renderCell: (params) => {
                 return (
                     <div className="flex justify-between gap-4 w-full">
-                        <ActionBtn icon={MdDeliveryDining} onClick={() => handleDispatch(params.row.id)} />
-                        <ActionBtn icon={MdDone} onClick={() => handleDeliver(params.row.id)} />
                         <ActionBtn icon={MdRemoveRedEye} onClick={() => router.push(`/order/${params.row.id}`)} />
                     </div>
                 );
@@ -102,35 +100,6 @@ const COrdersClient:React.FC<COrdersClientProps> = ({orders}) => {
         
 
     ]
-
-    const handleDispatch = useCallback((id: String) => {
-        axios.put('/api/order',{
-            id,
-            deliveryStatus: 'dispatched'
-        }).then((res)=>{
-            toast.success('Order Dispatched')
-            router.refresh();
-        }).catch((err) => {
-            toast.error("Something went wrong")
-            console.log(err)
-        })
-    }, [])
-
-    const handleDeliver = useCallback((id: String) => {
-        axios.put('/api/order',{
-            id,
-            deliveryStatus: 'delivered'
-        }).then((res)=>{
-            toast.success('Order Delivered')
-            router.refresh();
-        }).catch((err) => {
-            toast.error("Something went wrong")
-            console.log(err)
-        })
-    }, [])
- 
-
-
     return (  
         <div className="m-w-[1150px] m-auto text-xl">
             <div className="mb-4 mt-8">

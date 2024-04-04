@@ -135,4 +135,3 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
 export default ProductDetails;
 
 
-
