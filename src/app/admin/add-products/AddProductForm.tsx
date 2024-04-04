@@ -145,7 +145,9 @@ const AddProductForm = () => {
                     }
                 }
             } catch (error) {
-                
+                setIsLoading(false);
+                console.log('Error handling image uploads', error);
+                toast.error("Error handling image uploads");
             }
         }
     }
