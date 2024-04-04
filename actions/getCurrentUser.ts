@@ -13,7 +13,8 @@ export async function getCurrentUser(){                     // this function wou
         const session = await getSession();
         if(!session?.user?.email){return null;}
         const currentUser = await prisma.user.findUnique({
-            where: {email: session?.user?.email}
+            where: {email: session?.user?.email,},
+            include: {orders: true},
         })
         if(!currentUser){return null;}
         return {
@@ -22,7 +23,7 @@ export async function getCurrentUser(){                     // this function wou
             updatedAt: currentUser.updatedAt.toISOString(),
             emailVerified: currentUser.emailVerified?.toISOString() || null
         }
-    } catch (error) {
+    } catch (error: any) {
         return null;
     }
 }
