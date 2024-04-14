@@ -35,10 +35,10 @@ const SearchBar = () => {
                 {...register('searchTerm')}
                 autoComplete='off'
                 type="text"
-                placeholder='Explore shopnest'
-                className="p-2 hidden border border-black rounded-full bg-[#242424] text-center focus:placeholder-transparent"
+                placeholder='Explore'
+                className="p-1 lg:p-2 w-[100px] md:w-[170px] border border-black rounded-full bg-[#242424] text-center focus:placeholder-transparent"
             />
-            <button onClick={handleSubmit(onSubmit)} className="hover:text-yellow-500 text-white p-2 rounded-r-md"><FaSearch size={18} /></button>
+            <button onClick={handleSubmit(onSubmit)} className="hover:text-yellow-500 w-[15px]  text-white p-2 rounded-r-md md:w-full md:h-full"><FaSearch size={18} /></button>
         </div>
     );
 }

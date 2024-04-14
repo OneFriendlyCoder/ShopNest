@@ -50,13 +50,13 @@ const CheckoutForm:React.FC<CheckoutFormProps> = ({clientSecret, handleSetPaymen
             <div className='mb-6'>
                 <Heading title="Enter your details to complete checkout" />
             </div>
-            <h2 className='font-semibold mt-4 mb-2'>Address Information</h2>
+            <h2 className='font-semibold mt-4 mb-2 text-gray-400'>Address Information</h2>
             <AddressElement options={{mode: 'shipping', allowedCountries: ["US", "Kenya"]}}/>
 
-            <h2 className='font-semibold mt-4 mb-2'>Payment Information</h2>
+            <h2 className='font-semibold mt-4 mb-2 text-gray-400'>Payment Information</h2>
             <PaymentElement id="payment-element" options={{layout: "tabs"}}/>
 
-            <div className='py-4 mt-6 text-center text-slate-700 text-4xl font-bold'>
+            <div className='py-4 mt-6 text-center text-white text-4xl font-bold'>
                 Total: {formattedPrice}
             </div>
             <Button label={isLoading ? 'Processing' : 'Pay Now'} disabled={isLoading || !stripe || !elements} onClick={()=>{handleSubmit}}/>      

@@ -1,9 +1,6 @@
 export const revalidate = 0;
 export const dynamic = 'force-dynamic'
 import Container from "./components/Container";
-import HomeBanner from "./components/HomeBanner";
-import { products } from "@/utils/dummydata";
-import { TruncateText } from "@/utils/truncatestring";
 import ProductCard from "./components/products/ProductCard";
 import getProducts, { IProductsParams } from "../../actions/getProducts";
 import NullData from "./components/NullData";
@@ -30,7 +27,7 @@ export default async function Home({searchParams}: HomeProps) {
   return (
     <div>
       <Container>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:frid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
           {shuffledPdts.map((product:any)=> {
             return <ProductCard data={product} key={product.id}></ProductCard>
           })}
