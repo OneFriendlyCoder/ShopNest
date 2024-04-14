@@ -39,9 +39,9 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
     }
 
     const columns: GridColDef[] = [
-        {field: 'id', headerName: 'ID', width: 220},
-        {field: 'customer', headerName: 'Customer Name', width:130},
-        {field: 'amount', headerName: 'Amount(USD)', width:130, renderCell: (params) => {return(<div className="font-bold text-slate-800">{params.row.amount}</div>)}},
+        {field: 'id', headerName: 'ID', width: 220, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.id}</div>)}},
+        {field: 'customer', headerName: 'Customer Name', width:130, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.customer}</div>)}},
+        {field: 'amount', headerName: 'Amount(USD)', width:130, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.amount}</div>)}},
 
         {
             field: 'deliveryStatus',
@@ -49,13 +49,13 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
             width: 130,
             renderCell: (params) => {
                 return (
-                    <div className="font-bold text-slate-800">
+                    <div className="font-bold">
                         {params.row.deliveryStatus === 'pending' ? (
-                            <Status text="Pending" icon={MdAccessTimeFilled} bg="bg-slate-200" color="text-slate-700"/>
+                            <Status text="Pending" icon={MdAccessTimeFilled}  color="text-slate-500"/>
                         ) : params.row.deliveryStatus === 'dispatched' ? (
-                            <Status text="Dispatched" icon={MdDeliveryDining} bg="bg-purple-200" color="text-purple-700"/>
+                            <Status text="Dispatched" icon={MdDeliveryDining} color="text-purple-700"/>
                         ) : params.row.deliveryStatus === 'delivered' ? (
-                            <Status text="Delivered" icon={MdDone} bg="bg-green-200" color="text-green-700"/>
+                            <Status text="Delivered" icon={MdDone} color="text-green-700"/>
                         ) : (
                             <></>
                         )}
@@ -70,11 +70,11 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
             width: 130,
             renderCell: (params) => {
                 return (
-                    <div className="font-bold text-slate-800">
+                    <div className="font-bold">
                         {params.row.paymentStatus === 'pending' ? (
-                            <Status text="Pending" icon={MdAccessTimeFilled} bg="bg-slate-200" color="text-slate-700"/>
+                            <Status text="Pending" icon={MdAccessTimeFilled} color="text-slate-500"/>
                         ) : params.row.paymentStatus === 'complete' ? (
-                            <Status text="Completed" icon={MdDone} bg="bg-green-200" color="text-green-700"/>
+                            <Status text="Completed" icon={MdDone} color="text-green-700"/>
                         ) : (
                             <></>
                         )}
@@ -83,7 +83,7 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
             }
         },
         
-        {field: 'date', headerName: 'Date', width: 130},
+        {field: 'date', headerName: 'Date', width: 130, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.date}</div>)}},
 
         {
             field: 'action',
@@ -91,7 +91,7 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
             width: 150,
             renderCell: (params) => {
                 return (
-                    <div className="flex justify-between gap-4 w-full">
+                    <div className="flex justify-between gap-4 w-full mt-[10px]">
                         <ActionBtn icon={MdDeliveryDining} onClick={() => handleDispatch(params.row.id)} />
                         <ActionBtn icon={MdDone} onClick={() => handleDeliver(params.row.id)} />
                         <ActionBtn icon={MdRemoveRedEye} onClick={() => router.push(`/order/${params.row.id}`)} />
@@ -130,8 +130,8 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
 
 
     return (  
-        <div className="m-w-[1150px] m-auto text-xl">
-            <div className="mb-4 mt-8">
+        <div className="m-w-[1150px] m-auto text-xl mt-[30px]">
+            <div className="mb-[50px]">
                 <Heading title="Manage Orders" center/>
             </div>
             <div style={{height: 600, width: "100%"}}>

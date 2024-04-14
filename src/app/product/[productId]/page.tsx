@@ -15,7 +15,7 @@ const Product = async ({params}:{params:IParams}) => {                        //
     const user = await getCurrentUser();
     if(!product) {return <NullData title="Given Product does not exist"/>}
     return (  
-        <div className="p-8">
+        <div className="p-8 mt-[40px]">
             <Container>
                 <ProductDetails product={product}/>
                 <div className="flex flex-col mt:20 gap-4">

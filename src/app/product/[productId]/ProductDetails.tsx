@@ -88,29 +88,29 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
     return (  
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <ProductImage cartProduct={cartProduct} product={product} handleColorSelect={handleColorSelect}/>
-            <div className="flex flex-col gap-1 text-dlate-500 text-sm">
-                <h1 className="text-3xl font-medium text-slate-700">{product.name}</h1>
-                <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-10 text-dlate-500 text-sm">
+                <h1 className="text-3xl font-medium font-serif text-white">{product.name}</h1>
+                <div className="flex items-center gap-2 text-gray-500">
                     {productRating} Rating
                     <div>{product.reviews.length} Review</div>
                 </div>
-                <Horizontal />
-                <div className="text-justify">{product.description}</div>
-                <Horizontal />
+
+                <div className="text-justify text-gray-300">{product.description}</div>
+
                 <div>
-                    <span className="font-semibold">CATEGORY: </span>{product.category}
+                    <span className="font-semibold text-gray-300">CATEGORY: </span><span className="text-white">{product.category}</span>
                 </div>
                 <div>
-                    <span className="font-semibold">BRAND: </span>{product.brand}
+                    <span className="font-semibold text-gray-300">BRAND: </span><span className="text-white">{product.brand}</span>
                 </div>
                 <div className={product.inStock ? 'text-teal-400' : 'text-rose-400'}>
                     {product.inStock ? 'In stock' : 'Out of stock'}
                 </div>
-                <Horizontal />
+
                 {
                     isProductInCart? 
                     <>
-                       <p className="mb-2 text-slate-500 flex items-center gap-1">
+                       <p className="mb-2 text-slate-300 flex items-center gap-1">
                             <MdCheckCircle size={20} className="text-teal-400"/>
                             <span>Product Added to Cart</span> 
                        </p> 
@@ -121,9 +121,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({product}) => {
                     : 
                     <>
                         <SetColor cartProduct={cartProduct} images={product.images} handleColorSelect={handleColorSelect}/>
-                        <Horizontal />
+
                         <SetQuantity cartProduct={cartProduct} handleQtyIncrease={handleQtyIncrease} handleQtyDecrease={handleQtyDecrease} />
-                        <Horizontal />
+
                         <div className="max-w-[300px]"><Button label="Add to Cart" onClick={()=>handleAddProductToCart(cartProduct)}/></div>        {/* adding the cart product to the state */}
                     </>
                 }

@@ -3,7 +3,7 @@ import { IconType } from "react-icons";
 interface StatusProps{
     text: string,
     icon: IconType,
-    bg: string,
+    bg?: string,
     color: string,
 }
 

@@ -4,7 +4,7 @@ interface NullDataProps{
 
 const NullData:React.FC<NullDataProps> = ({title}) => {
     return (  
-        <div className="w-full h-[50vh] flex items-center justify-center text-xl md:text-2xl">   
+        <div className="w-full h-[50vh] flex items-center justify-center text-xl md:text-2xl text-gray-500">   
             <p className="font-medium">{title}</p>
         </div>
     );

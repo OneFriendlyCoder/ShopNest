@@ -1,7 +1,6 @@
 "use client"
 import { useCallback, useState } from "react";
 import Avatar from "../Avatar";
-import { AiFillCaretDown } from "react-icons/ai";
 import Link from "next/link";
 import MenuItems from "./MenuItem";
 import { signOut } from "next-auth/react";
@@ -22,14 +21,13 @@ const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
     return (  
     <>
         <div className="relative z-30">
-            <div onClick={toggleOpen} className="p-2 border-[1px] border-red-400 flex flex-row gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700 bg-white">
+            <div onClick={toggleOpen} className="p-2 flex flex-row gap-1 rounded-full cursor-pointer hover:shadow-md transition text-slate-700 hover:text-slate-300">
                 <Avatar src={currentUser?.image}/>
-                <AiFillCaretDown />
             </div>
 
             {isOpen && (
                 <div className="absolute rounded-md shadow-md w-[170px] bg-white overflow-hidden right-0 top-12 text-sm flex flex-col cursor-pointer">
-                    {currentUser ?                     <div>
+                    {currentUser ?<div>
                         <Link href="/orders">
                             <MenuItems onClick={toggleOpen}>Your Orders</MenuItems>
                         </Link>

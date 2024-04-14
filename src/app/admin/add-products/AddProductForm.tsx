@@ -179,8 +179,8 @@ const AddProductForm = () => {
         <TextArea id="description" label="Description" disabled={isLoading} register={register} errors={errors} required/>
         <CustomCheckBox id="inStock" register={register} label="This product is in Stock"/>
         <div className="w-full font-medium">
-           <div className="mb-2 font-semibold">Select a Category</div>
-           <div className="grid grid-cols-2 md:grid-cols-3 max-h-[50vh] overflow-y-auto">
+           <div className="mb-2 font-semibold text-gray-400">Select a Category</div>
+           <div className="grid grid-cols-2 md:grid-cols-3 max-h-[50vh] overflow-y-auto text-white">
                 {categories.map((item) => {
                     if(item.label === 'All'){return null}
                     return <div key={item.label} className="col-span">
@@ -189,13 +189,13 @@ const AddProductForm = () => {
                 })}
            </div> 
            <div className="w-full flex flex-col flex-wrap gap-1 mt-4">
-                <div className="font-bold">
+                <div className="font-bold text-gray-400">
                     Select color and upload their images
                 </div>
-                <div className="text-sm">
+                <div className="text-sm text-gray-400 m-[20px]">
                     You must upload an image for each of the color selected otherwise the color selection will be ignored
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3 text-gray-400">
                     {Colors.map((item, index) => {
                         return (
                             <SelectColor key={index} item={item} addImageToState={addImageToState} removeImageFromState={removeImageFromState} isProductCreated={false} />

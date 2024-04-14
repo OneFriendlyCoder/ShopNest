@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-[#171717]`}>
         <Toaster toastOptions={{style:{
           background: 'rgb(51 65 85)',
           color: '#fff',
@@ -33,7 +33,6 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
-          <Footer />
           </div>
         </CartProvider>
       </body>

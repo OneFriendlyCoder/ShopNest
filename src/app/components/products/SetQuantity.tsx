@@ -9,7 +9,7 @@ interface SetQtyProps{
     handleQtyDecrease: () => void;
 }
 
-const btnstyles = 'border-[1.2px] border-slate-300 px-2 rounded'
+const btnstyles = 'border-[1.2px] border-slate-300 px-2 rounded text-white'
 
 const SetQuantity: React.FC<SetQtyProps> = ({
     cartCounter,
@@ -19,10 +19,10 @@ const SetQuantity: React.FC<SetQtyProps> = ({
 }) => {
     return (  
         <div className="flex gap-8 items-center">
-            {cartCounter ? null: <div className="font-semibold">QUANTITY:</div>}
+            {cartCounter ? null: <div className="font-semibold text-gray-500">QUANTITY:</div>}
             <div className="flex gap-4 items-center text-base">
                 <button onClick={handleQtyDecrease} className={btnstyles}>-</button>  {/* handleQtyIncrease is directly used as the event handler and no additional logic or argument is required for the funciton to execute */}
-                <div>{cartProduct.quantity}</div>
+                <div className="text-white">{cartProduct.quantity}</div>
                 <button onClick={handleQtyIncrease} className={btnstyles}>+</button>
             </div>
         </div>

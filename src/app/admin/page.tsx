@@ -14,7 +14,7 @@ const Admin = async () => {
     <div className="p-8">
         <Container>
             <Summary products={products} users={users} orders={orders}/>
-            <div className="mt-4 mx-auto max-w-[1150px]">
+            <div className="mt-[30px] mx-auto max-w-[1150px]">
                 <BarGraph data={graphData}/>
             </div>
         </Container>    

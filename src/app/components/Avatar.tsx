@@ -9,12 +9,12 @@ const Avatar: React.FC<AvatarProps> = ({src}) => {
         return (  
             <div>
                 {src && (
-                    <Image src={src} alt="Avatar" className="rounded-full" height="30" width="30"/>
+                    <Image src={src} alt="Avatar" className="rounded-full" height="40" width="40"/>
                 )}
             </div>
         );    
     }
-    else {return <FaUserCircle size={24}/>}
+    else {return <FaUserCircle size={30}/>}
 
 }
  
