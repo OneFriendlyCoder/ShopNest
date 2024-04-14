@@ -112,7 +112,6 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
             router.refresh();
         }).catch((err) => {
             toast.error("Something went wrong")
-            console.log(err)
         })
     }, [])
 
@@ -125,7 +124,6 @@ const ManageOrdersClient:React.FC<ManageOrdersClientProps> = ({orders}) => {
             router.refresh();
         }).catch((err) => {
             toast.error("Something went wrong")
-            console.log(err)
         })
     }, [])
  

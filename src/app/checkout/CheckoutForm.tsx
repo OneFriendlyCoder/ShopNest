@@ -35,7 +35,6 @@ const CheckoutForm:React.FC<CheckoutFormProps> = ({clientSecret, handleSetPaymen
         const result = await stripe.confirmPayment({
             elements, redirect: 'if_required'
         })
-        console.log(result)
         if(!result.error){
                 toast.success('Payment Successful');            
                 handleClearCart();              

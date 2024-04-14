@@ -64,7 +64,6 @@ const ManageProductsClient:React.FC<ManageProductsClientProps> = ({products}) =>
             router.refresh();
         }).catch((err) => {
             toast.error("Something went wrong")
-            console.log(err)
         })
     }, [])
 
@@ -90,7 +89,6 @@ const ManageProductsClient:React.FC<ManageProductsClientProps> = ({products}) =>
             router.refresh();
         }).catch((error) => {
             toast.error("Something went wrong")
-            console.log(error)
         });
     }, [])
 
