@@ -66,7 +66,7 @@ const CheckoutClient = () => {
                     </Elements>
                 )
             }
-            {loading && <div className="text-center">Loading Checkout..</div>}
+            {loading && <div className="text-center text-gray-400">Loading Checkout..</div>}
             {error && <div className="text-center text-rose-600">Something went wrong</div> }
             {paymentSuccess && (<div className="flex items-center flex-col gap-4">
                 <div className="text-teal-500 text-center">Payment Success</div>

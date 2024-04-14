@@ -52,7 +52,7 @@ const RegisterForm:React.FC<RegisterPageProps> = ({currentUser}) => {
         }).catch(()=>{toast.error("Something went wrong")}).finally(() => {setIsLoading(false)});
     }
     if(currentUser){
-        return (<p>Already Logged In. Redirecting...</p>)
+        return (<p className="text-gray-500">Already Logged In. Redirecting...</p>)
     }
     return (  
         <>
@@ -63,7 +63,7 @@ const RegisterForm:React.FC<RegisterPageProps> = ({currentUser}) => {
             <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required/>
             <Input id="password" label="Password" disabled={isLoading} register={register} errors={errors} required type="password"/>
             <Button label={isLoading ? 'Loading' : 'SignUp'} onClick={handleSubmit(onSubmit)}/>
-            <p className="text-sm">Already have an account?
+            <p className="text-sm text-white">Already have an account?
                 <Link className="underline" href="/login"> Login</Link>
             </p>
         </>
@@ -71,5 +71,3 @@ const RegisterForm:React.FC<RegisterPageProps> = ({currentUser}) => {
 }
  
 export default RegisterForm;
-
-//The Account collection is created in the DB when we use some other way to register or login ex; Google login

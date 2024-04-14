@@ -43,7 +43,7 @@ const ManageProductsClient:React.FC<ManageProductsClientProps> = ({products}) =>
         {field: 'name', headerName: 'Name', width:220, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.name}</div>)}},
         {field: 'price', headerName: 'Price(USD)', width:100, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.price}</div>)}},
         {field: 'category', headerName: 'Category', width:100, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.category}</div>)}},
-        {field: 'inStock', headerName: 'InStock', width:100,  renderCell: (params) => {return(<div className="font-bold text-slate-800">{params.row.inStock === true ? <Status text="In stock" icon={MdDone}color="text-teal-700"/> : <Status text="out of stock" icon={MdClose} bg="bg-rose-200" color="text-rose-700"/>}</div>)}},
+        {field: 'inStock', headerName: 'InStock', width:100,  renderCell: (params) => {return(<div className="font-bold text-slate-800">{params.row.inStock === true ? <Status text="In stock" icon={MdDone}color="text-teal-700"/> : <Status text="out of stock" icon={MdClose} color="text-rose-700"/>}</div>)}},
         {field: 'brand', headerName: 'Brand', width:100, renderCell: (params) => {return(<div className="font-bold text-white">{params.row.brand}</div>)}},
         
         {field: 'action', headerName: 'Actions', width:200, renderCell: (params) => {return(<div className="flex justify-between gap-4 w-full mt-[10px]">

@@ -9,7 +9,7 @@ import ItemContent from "./ItemContent";
 import { FormatPrice } from '../../utils/formatPrice';
 import { SafeUser } from "../../../types";
 import { useRouter } from "next/navigation";
-
+import ItemContentsm from "./ItemContentsm";
 interface CartClientProps{
     currentUser: SafeUser | null;
 }
@@ -22,11 +22,11 @@ const CartClient:React.FC<CartClientProps> = ({currentUser}) => {
     if(!cartProducts || cartProducts.length === 0){
         return (
             <div className="flex flex-col items-center">
-                <div className="text-2xl">Your cart is empty</div>
+                <div className="text-2xl text-white">Your cart is empty</div>
                 <div>
                     <Link href="/" className="text-slate-500 flex items-center gap-1 mt-2">
                         <MdArrowBack/>
-                    <span>Start shopping</span>
+                    <span className="text-gray-500">Start shopping</span>
                     </Link>
                 </div>
             </div>
@@ -35,17 +35,29 @@ const CartClient:React.FC<CartClientProps> = ({currentUser}) => {
     return (  
         <div>
             <Heading title="Shopping Cart" center/>
-            <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-10">
-                <div className="col-span-2 justify-self-start text-white">PRODUCT</div>
-                <div className="justify-self-center text-white">PRICE</div>
-                <div className="justify-self-center text-white">QUANTITY</div>
-                <div className="justify-self-end text-white">TOTAL</div>
+            <div className="md:hidden">
+                <div>
+                    {cartProducts && cartProducts.map((item) => {
+                        return (<ItemContentsm key={item.id} item={item}/>)
+                    })}
+                </div>
             </div>
-            <div>
-                {cartProducts && cartProducts.map((item) => {
-                    return (<ItemContent key={item.id} item={item}/>)
-                })}
+
+            <div className="hidden md:block">
+                <div className="grid grid-cols-5 text-xs gap-4 pb-2 items-center mt-10">
+                    <div className="col-span-2 justify-self-start text-white">PRODUCT</div>
+                    <div className="justify-self-center text-white">PRICE</div>
+                    <div className="justify-self-center text-white">QUANTITY</div>
+                    <div className="justify-self-end text-white">TOTAL</div>
+                </div>
+                <div>
+                    {cartProducts && cartProducts.map((item) => {
+                        return (<ItemContent key={item.id} item={item}/>)
+                    })}
+                </div>
             </div>
+
+            
             <div className="border-t-[1.5px] border-slate-200 py-4 flex justify-between gap-4 mt-10">
                 <div className="w-[90px]">
                     <Button label="Clear Cart" onClick={()=>{handleClearCart()}} small/>

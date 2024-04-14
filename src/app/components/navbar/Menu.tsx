@@ -15,6 +15,7 @@ interface UserMenuProps{
 const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
 
     const [isOpen, setIsOpen] = useState(false);
+    const isAdmin = currentUser?.role === "ADMIN";
     const toggleOpen = useCallback(() => {
         setIsOpen((prev)=> !prev);
     }, [])
@@ -31,10 +32,14 @@ const UserMenu:React.FC<UserMenuProps> = ({currentUser}) => {
                         <Link href="/orders">
                             <MenuItems onClick={toggleOpen}>Your Orders</MenuItems>
                         </Link>
-                        <Link href="/admin">
-                            <MenuItems onClick={toggleOpen}>Admin Dashboard</MenuItems>
-                        </Link>
-                        <hr/>
+                        {
+                            isAdmin && (
+                                <Link href="/admin">
+                                <MenuItems onClick={toggleOpen}>Admin Dashboard</MenuItems>
+                            </Link>
+                            )
+                        }
+                    <hr/>
                         <MenuItems onClick={()=>{toggleOpen(); signOut();}}>Signout</MenuItems>
                     </div> :                     
                     <div>
